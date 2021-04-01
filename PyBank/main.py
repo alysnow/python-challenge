@@ -4,7 +4,7 @@ import csv
 # Path to collect data from the Resources folder
 budget_data_csv = os.path.join('PyBank','Resources','budget_data.csv')
 
-#Create blank lists to iterate through rows
+# Create blank lists to iterate through rows
 total_months = []
 total_profit = []
 profit_change = []
@@ -12,10 +12,10 @@ profit_change = []
 # Open csv
 with open(budget_data_csv, 'r') as budget:
 
-     # Store the contents of budget_data.csv in the variable csvreader
+    # Create CSV variable
     csvreader = csv.reader(budget,delimiter=",") 
 
-    # Skip the header labels to only iterate with the values
+    # Skip the headers and iterate through the values
     header = next(csvreader)  
 
     # Iterate through the rows
@@ -28,19 +28,18 @@ with open(budget_data_csv, 'r') as budget:
     # Iterate through the profits to get the monthly change in profits
     for i in range(len(total_profit)-1):
         
-        # Calculate difference between two months and append to profit change
+        # Calculate difference between months and append to profit change
         profit_change.append(total_profit[i+1]-total_profit[i])
         
-# Get the max and min of the the profit change list
+# Get the max and min of the profit change list
 max_increase_value = max(profit_change)
 max_decrease_value = min(profit_change)
 
-# Compare max and min to the proper month using month list and index from max and min
-# Apply the plus 1 at the end since month associated with change is the + 1 month or next month
+# Compare the max and min using month list and index
 max_increase = profit_change.index(max(profit_change)) + 1
 max_decrease = profit_change.index(min(profit_change)) + 1 
 
-# Print Statements
+# Print summary table
 print("Financial Analysis")
 print("----------------------------")
 print(f"Total Months: {len(total_months)}")
@@ -49,12 +48,12 @@ print(f"Average Change: ${round(sum(profit_change)/len(profit_change),2)}")
 print(f"Greatest Increase in Profits: {total_months[max_increase]} (${(str(max_increase_value))})")
 print(f"Greatest Decrease in Profits: {total_months[max_decrease]} (${(str(max_decrease_value))})")
 
-# Output files
+# Output file
 output_file = os.path.join('PyBank','Analysis','Financial_Analysis.txt')
 
 with open(output_file,"w") as file:
     
-# Print to Financial_Analysis
+# Print Financial_Analysis txt file
     file.write("Financial Analysis")
     file.write("\n")
     file.write("----------------------------")
